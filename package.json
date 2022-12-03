@@ -1,0 +1,14 @@
+{
+  "name": "ponggame",
+  "version": "1.0.0",
+  "description": "Learing js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Huras",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.29.0"
+  }
+}
