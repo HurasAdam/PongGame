@@ -15,10 +15,24 @@ const playerHeight=100;
 
 const playerPositionX=70;
 const aiPositionX= 910;
+let playerPositionY=200;
+let aiPositionY=200;
+const lineWidth=4
+const lineHeight=16
 
 function drawTable(){
 ctx.fillStyle='#143d';
     ctx.fillRect(0,0,cw,ch)
+
+
+for(let linePosition=20;linePosition<ch;linePosition+=40){
+    
+    ctx.fillStyle='gray';
+    ctx.fillRect((cw/2+2),linePosition,lineWidth,lineHeight);
+}
+
+
+
 }
 
 function drawBall(){
@@ -28,14 +42,13 @@ ctx.fillRect(ballPositionX,ballPositionY, ballSize,ballSize)
 
 }
 
-drawTable()
-drawBall()
-
-drawPlayers()
 function drawPlayers(){
 ctx.fillStyle='white'
-ctx.fillRect(playerPositionX,250,playerWidth,playerHeight)
-
+ctx.fillRect(playerPositionX,playerPositionY,playerWidth,playerHeight)
 ctx.fillStyle='white'
-ctx.fillRect(aiPositionX,250,playerWidth,playerHeight)
+ctx.fillRect(aiPositionX,aiPositionY,playerWidth,playerHeight)
 }
+
+drawTable()
+drawBall()
+drawPlayers()
