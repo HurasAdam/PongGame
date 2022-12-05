@@ -48,8 +48,13 @@ function drawBall() {
 
   if (ballPositionX >= cw - ballSize || ballPositionX <= 0) {
     ballSpeedX = -ballSpeedX;
-    speedUpBall();
+    speedUpBall();  
   }
+
+if(ballPositionX<=playerPositionX+playerWidth &&ballPositionY<=playerPositionY){
+  console.log('tak')
+}
+
 }
 
 function drawPlayers() {
@@ -63,6 +68,7 @@ function setGame() {
   drawTable();
   drawBall();
   drawPlayers();
+  
 }
 
 function speedUpBall() {
@@ -99,3 +105,5 @@ canvas.addEventListener("mousemove", function (e) {
     aiPositionY = 0;
   }
 });
+
+
