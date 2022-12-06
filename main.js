@@ -16,8 +16,8 @@ const playerHeight = 100;
 
 const playerPositionX = 70;
 const aiPositionX = 910;
-let playerPositionY = 200;
-let aiPositionY = 200;
+let playerPositionY = null;
+let aiPositionY = null;
 const lineWidth = 4;
 const lineHeight = 16;
 let ballSpeedX = 1;
@@ -43,18 +43,29 @@ function drawBall() {
 
   if (ballPositionY >= ch - ballSize || ballPositionY <= 0) {
     ballSpeedY = -ballSpeedY;
-    speedUpBall();
+    speedUpBall(0.2);
   }
 
   if (ballPositionX >= cw - ballSize || ballPositionX <= 0) {
-    ballSpeedX = -ballSpeedX;
-    speedUpBall();  
+    gameOver();
   }
 
-if(ballPositionX<=playerPositionX+playerWidth &&ballPositionY<=playerPositionY){
-  console.log('tak')
-}
-
+  if (
+    ballPositionX >= playerPositionX &&
+    ballPositionX <= playerPositionX + playerWidth &&
+    ballPositionY >= playerPositionY &&
+    ballPositionY <= playerPositionY + 100
+  ) {
+    ballSpeedX = -ballSpeedX;
+    speedUpBall(0.5);
+  } else if (
+    ballPositionX >= aiPositionX - playerWidth &&
+    ballPositionY >= aiPositionY &&
+    ballPositionY <= aiPositionY + 100
+  ) {
+    ballSpeedX = -ballSpeedX;
+    speedUpBall(0.5);
+  }
 }
 
 function drawPlayers() {
@@ -68,23 +79,22 @@ function setGame() {
   drawTable();
   drawBall();
   drawPlayers();
-  
 }
 
-function speedUpBall() {
-  if (ballSpeedX > 0) {
-    ballSpeedX = ballSpeedX + 0.2;
+function speedUpBall(value) {
+  if (ballSpeedX > 0 && ballSpeedX < 16) {
+    ballSpeedX = ballSpeedX + value;
   }
-  if (ballPositionX < 0) {
-    ballSpeedX = ballSpeedX - 0.2;
-  }
-
-  if (ballSpeedY > 0) {
-    ballPositionY += 0.2;
+  if (ballPositionX < 0 && ballSpeedX > -16) {
+    ballSpeedX = ballSpeedX - value;
   }
 
-  if (ballSpeedY < 0) {
-    ballSpeedY -= 0.2;
+  if (ballSpeedY > 0 && ballSpeedY < 16) {
+    ballPositionY += value;
+  }
+
+  if (ballSpeedY < 0 && ballSpeedX > -16) {
+    ballSpeedY -= value;
   }
 }
 
@@ -106,4 +116,7 @@ canvas.addEventListener("mousemove", function (e) {
   }
 });
 
-
+function gameOver() {
+  ballPositionX = (cw - 10) / 2;
+  ballPositionY = (ch - 10) / 2;
+}
