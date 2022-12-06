@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-const gameResultBox= document.querySelectorAll('div span');
+const gameResultBox = document.querySelectorAll("div span");
 
 canvas.width = 1000;
 canvas.height = 500;
 
 let Player = 0;
-let Computer=0;
+let Computer = 0;
 const cw = canvas.width;
 const ch = canvas.height;
 let ballPositionX = (cw - 10) / 2;
@@ -48,20 +48,21 @@ function drawBall() {
     speedUpBall(0.2);
   }
 
-  const plyerWiningCondition=ballPositionX >= cw - ballSize;
-  const aiWiningCondition= ballPositionX <= 0;
-  if ( plyerWiningCondition||aiWiningCondition ) {
-    gameOver();
-
-    if(plyerWiningCondition){
-      console.log('Gracz wygrywa')
-      Player++
-      gameResultBox[1].textContent= Player;
-    }
-    else if(aiWiningCondition){
-      console.log('Komputer wygrywa');
-      Computer++
-      gameResultBox[2].textContent= Computer;
+  const plyerWiningCondition = ballPositionX >= cw - ballSize;
+  const aiWiningCondition = ballPositionX <= 0;
+  if (plyerWiningCondition || aiWiningCondition) {
+    if (plyerWiningCondition) {
+      console.log("Gracz wygrywa");
+      Player++;
+      gameOver();
+      gameResultBox[1].textContent =getScore();
+      
+    } else if (aiWiningCondition) {
+      console.log("Komputer wygrywa");
+      Computer++;
+      gameOver();
+      gameResultBox[2].textContent = getScore();
+      
     }
   }
 
@@ -91,10 +92,12 @@ function drawPlayers() {
 }
 
 function setGame() {
+  getScore()
   drawTable();
   drawBall();
   drawPlayers();
   aiMovement();
+ 
 
 }
 
@@ -121,77 +124,80 @@ canvas.addEventListener("mousemove", function (e) {
   const mousePosition = e.clientY;
 
   playerPositionY = mousePosition - playerHeight / 2 - topCanvas;
-  
+
   if (playerPositionY >= 400) {
     playerPositionY = 400;
-   
-  }
-
-  else if (playerPositionY <= 0) {
+  } else if (playerPositionY <= 0) {
     playerPositionY = 0;
-   
-  }  
+  }
 });
 
-
-
-function aiMovement(){
-  if(aiPositionY>=400){
-    aiPositionY=400
+function aiMovement() {
+  if (aiPositionY >= 400) {
+    aiPositionY = 400;
+  } else if (aiPositionY <= 0) {
+    aiPositionY = 0;
   }
-  else if (playerPositionY <= 0) {
-    playerPositionY = 0;
-   
-  }  
-if(ballPositionX>500){
-  if((ballPositionY+10)-(aiPositionY+50)<200){
-    aiPositionY=ballPositionY;
-  }
-
-  if(ballPositionX>500){
-    if((ballPositionY+10)-(aiPositionY+50)<-100){
-      aiPositionY=ballPositionY-5;
+  if (ballPositionX > 500) {
+    if (ballPositionY - 10 - (aiPositionY - 50) > 100) {
+      aiPositionY += 5;
     }
   }
-  // else if((ballPositionY+10)-(aiPositionY+50)>200){
-  //   aiPositionY+=5;
-  // }
-}
+  if (ballPositionX > 500) {
+    if (ballPositionY - 10 - (aiPositionY - 50) < 150) {
+      aiPositionY -= 5;
+    }
+
+    if (ballPositionX < 500) {
+      if (ballPositionY - 10 - (aiPositionY - 50) > 100) {
+        aiPositionY += 2;
+      }
+    }
+    if (ballPositionX > 500) {
+      if (ballPositionY - 10 - (aiPositionY - 50) < 150) {
+        aiPositionY -= 2;
+      }
+    }
+    console.log(ballPositionY - 10 - (aiPositionY - 50));
   }
-
-
-
+}
 
 function gameOver() {
   ballPositionX = (cw - 10) / 2;
   ballPositionY = (ch - 10) / 2;
   ballSpeedX = 1;
- ballSpeedY = 1;
+  ballSpeedY = 1;
   drawTable();
   drawBall();
   drawPlayers();
+  testLocalStorage();
+}
+
+function testLocalStorage() {
   
+    localStorage.setItem('ComputerScore',Computer.toString());
+ 
 }
-
-
-function testLocalStorage(){
-
-const foo= ' foo';
-
-try{
-  localStorage.setItem(foo,foo);
-  
-  return true;
-}catch(e){
-  return false;
-}
-
-}
-
 
 // function init(){
 //   if(!testLocalStorage){
-//     console.log('Lipa')
+//     console.log('')
 //   }
 //   else
 // }
+
+
+function getScore(Computer){
+  const result = localStorage.getItem('ComputerScore');
+  
+  if(result){
+    return result
+  }
+  else{
+return 0;
+  }
+
+
+}
+  
+
