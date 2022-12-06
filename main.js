@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const gameResultBox= document.querySelectorAll('div span');
 
 canvas.width = 1000;
 canvas.height = 500;
 
-let counter = 30;
+let Player = 0;
+let Computer=0;
 const cw = canvas.width;
 const ch = canvas.height;
 let ballPositionX = (cw - 10) / 2;
@@ -16,12 +18,12 @@ const playerHeight = 100;
 
 const playerPositionX = 70;
 const aiPositionX = 910;
-let playerPositionY = null;
-let aiPositionY = null;
+let playerPositionY = 200;
+let aiPositionY = 200;
 const lineWidth = 4;
 const lineHeight = 16;
-let ballSpeedX = 1;
-let ballSpeedY = 1;
+let ballSpeedX = 2;
+let ballSpeedY = 2;
 const topCanvas = canvas.offsetTop;
 console.log(topCanvas);
 
@@ -53,9 +55,13 @@ function drawBall() {
 
     if(plyerWiningCondition){
       console.log('Gracz wygrywa')
+      Player++
+      gameResultBox[1].textContent= Player;
     }
     else if(aiWiningCondition){
       console.log('Komputer wygrywa');
+      Computer++
+      gameResultBox[2].textContent= Computer;
     }
   }
 
@@ -91,10 +97,10 @@ function setGame() {
 }
 
 function speedUpBall(value) {
-  if (ballSpeedX > 0 && ballSpeedX < 16) {
+  if (ballSpeedX > 0 && ballSpeedX < 14) {
     ballSpeedX = ballSpeedX + value;
   }
-  if (ballPositionX < 0 && ballSpeedX > -16) {
+  if (ballPositionX < 0 && ballSpeedX > -14) {
     ballSpeedX = ballSpeedX - value;
   }
 
@@ -113,19 +119,63 @@ canvas.addEventListener("mousemove", function (e) {
   const mousePosition = e.clientY;
 
   playerPositionY = mousePosition - playerHeight / 2 - topCanvas;
-  aiPositionY = playerPositionY;
-  if (playerPositionY >= 400 || aiPositionY >= 400) {
+  
+  if (playerPositionY >= 400) {
     playerPositionY = 400;
-    aiPositionY = 400;
+   
   }
 
-  if (playerPositionY <= 0 || aiPositionY <= 0) {
+  if (playerPositionY <= 0) {
     playerPositionY = 0;
-    aiPositionY = 0;
+   
   }
 });
+
+
+
+function aiMovement(){
+  const middlePaddle = aiPositionY+ playerHeight/2
+
+
+if(ballPositionX>500){
+
+  if(middlePaddle-10){
+    aiPositionY -= 24;
+}
+}
+
+}
+
 
 function gameOver() {
   ballPositionX = (cw - 10) / 2;
   ballPositionY = (ch - 10) / 2;
+  ballSpeedX = 1;
+ ballSpeedY = 1;
+  drawTable();
+  drawBall();
+  drawPlayers();
 }
+
+
+function testLocalStorage(){
+
+const foo= ' foo';
+
+try{
+  localStorage.setItem(foo,foo);
+  
+  return true;
+}catch(e){
+  return false;
+}
+
+}
+
+
+// function init(){
+//   if(!testLocalStorage){
+//     console.log('Lipa')
+//   }
+//   else
+// }

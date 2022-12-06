@@ -10,9 +10,29 @@ body{
     justify-content: center;
    align-items: center;
    background-color: black;
+   flex-direction: column;
    
 }
 canvas{
     border: 3px solid white;
+
+}
+
+.gameResult{
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    width: 40%;
+    line-height: 100px;
+    pointer-events: none;
+    background: transparent;
+    height:10%
+    
+}
+
+.gameResult span{
+    font-size: 26px;
+    pointer-events: none;
+    
 
 }
