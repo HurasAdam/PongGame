@@ -145,7 +145,13 @@ function aiMovement(){
   }  
 if(ballPositionX>500){
   if((ballPositionY+10)-(aiPositionY+50)<200){
-    aiPositionY-=5
+    aiPositionY=ballPositionY;
+  }
+
+  if(ballPositionX>500){
+    if((ballPositionY+10)-(aiPositionY+50)<-100){
+      aiPositionY=ballPositionY-5;
+    }
   }
   // else if((ballPositionY+10)-(aiPositionY+50)>200){
   //   aiPositionY+=5;
