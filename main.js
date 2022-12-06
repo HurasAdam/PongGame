@@ -46,8 +46,17 @@ function drawBall() {
     speedUpBall(0.2);
   }
 
-  if (ballPositionX >= cw - ballSize || ballPositionX <= 0) {
+  const plyerWiningCondition=ballPositionX >= cw - ballSize;
+  const aiWiningCondition= ballPositionX <= 0;
+  if ( plyerWiningCondition||aiWiningCondition ) {
     gameOver();
+
+    if(plyerWiningCondition){
+      console.log('Gracz wygrywa')
+    }
+    else if(aiWiningCondition){
+      console.log('Komputer wygrywa');
+    }
   }
 
   if (
