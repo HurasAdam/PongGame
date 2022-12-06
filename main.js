@@ -94,6 +94,8 @@ function setGame() {
   drawTable();
   drawBall();
   drawPlayers();
+  aiMovement();
+
 }
 
 function speedUpBall(value) {
@@ -125,26 +127,33 @@ canvas.addEventListener("mousemove", function (e) {
    
   }
 
-  if (playerPositionY <= 0) {
+  else if (playerPositionY <= 0) {
     playerPositionY = 0;
    
-  }
+  }  
 });
 
 
 
 function aiMovement(){
-  const middlePaddle = aiPositionY+ playerHeight/2
-
-
+  if(aiPositionY>=400){
+    aiPositionY=400
+  }
+  else if (playerPositionY <= 0) {
+    playerPositionY = 0;
+   
+  }  
 if(ballPositionX>500){
+  if((ballPositionY+10)-(aiPositionY+50)<200){
+    aiPositionY-=5
+  }
+  // else if((ballPositionY+10)-(aiPositionY+50)>200){
+  //   aiPositionY+=5;
+  // }
+}
+  }
 
-  if(middlePaddle-10){
-    aiPositionY -= 24;
-}
-}
 
-}
 
 
 function gameOver() {
@@ -155,6 +164,7 @@ function gameOver() {
   drawTable();
   drawBall();
   drawPlayers();
+  
 }
 
 
