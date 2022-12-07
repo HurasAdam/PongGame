@@ -3,15 +3,14 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const gameResultBox = document.querySelectorAll("div span");
 
-
-gameResultBox[1].textContent=getScore().Player;
-gameResultBox[2].textContent=getScore().Computer;
+gameResultBox[1].textContent = getScore().Player;
+gameResultBox[2].textContent = getScore().Computer;
 canvas.width = 1000;
 canvas.height = 500;
 
 const gameState = {
-  Player:0,
-  Computer:0,
+  Player: 0,
+  Computer: 0,
   cw: canvas.width,
   ch: canvas.height,
   ballPositionX: (1000 - 10) / 2,
@@ -175,12 +174,12 @@ function aiMovement() {
 
     if (gameState.ballPositionX < 500) {
       if (gameState.ballPositionY - 10 - (gameState.aiPositionY - 50) > 100) {
-        gameState.aiPositionY += 2;
+        gameState.aiPositionY += 1;
       }
     }
     if (gameState.ballPositionX > 500) {
       if (gameState.ballPositionY - 10 - (gameState.aiPositionY - 50) < 150) {
-        gameState.aiPositionY -= 2;
+        gameState.aiPositionY -= 1;
       }
     }
   }
@@ -198,30 +197,14 @@ function gameOver() {
 }
 
 function setLocalStorage() {
-  localStorage.setItem('gameState',JSON.stringify(gameState))
-
-
-  
- 
+  localStorage.setItem("gameState", JSON.stringify(gameState));
 }
 
-// function init(){
-//   if(!testLocalStorage){
-//     console.log('')
-//   }
-//   else
-
 function getScore() {
-// }
-let result = JSON.parse(localStorage.getItem("gameState"));
-
+  let result = JSON.parse(localStorage.getItem("gameState"));
   if (result) {
-    
-    return result
+    return result;
   } else {
     return 0;
   }
-  
 }
-
-
