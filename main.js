@@ -3,12 +3,15 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const gameResultBox = document.querySelectorAll("div span");
 
+
+gameResultBox[1].textContent=getScore().Player;
+gameResultBox[2].textContent=getScore().Computer;
 canvas.width = 1000;
 canvas.height = 500;
 
 const gameState = {
-  Player: 0,
-  Computer: 0,
+  Player:0,
+  Computer:0,
   cw: canvas.width,
   ch: canvas.height,
   ballPositionX: (1000 - 10) / 2,
@@ -69,12 +72,12 @@ function drawBall() {
       console.log("Gracz wygrywa");
       gameState.Player++;
       gameOver();
-      gameResultBox[1].textContent = getScore(gameState.Player);
+      gameResultBox[1].textContent = getScore().Player;
     } else if (aiWiningCondition) {
       console.log("Komputer wygrywa");
       gameState.Computer++;
       gameOver();
-      gameResultBox[2].textContent = getScore(gameState.Computer);
+      gameResultBox[2].textContent = getScore().Computer;
     }
   }
 
@@ -207,16 +210,18 @@ function setLocalStorage() {
 //     console.log('')
 //   }
 //   else
-// }
 
-function getScore(value) {
-  const result = JSON.parse(localStorage.getItem("gameState"));
+function getScore() {
+// }
+let result = JSON.parse(localStorage.getItem("gameState"));
 
   if (result) {
     
-    return result[value]
+    return result
   } else {
     return 0;
   }
   
 }
+
+
