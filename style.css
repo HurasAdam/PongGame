@@ -14,7 +14,7 @@ body{
    
 }
 canvas{
-    border: 3px solid white;
+    
 
 }
 
@@ -26,13 +26,13 @@ canvas{
     line-height: 100px;
     pointer-events: none;
     background: transparent;
-    height:10%
-    
+    height:10%;
+    visibility: hidden;
+    font-size: 18px;
+   
 }
 
-.gameResult span{
-    font-size: 26px;
-    pointer-events: none;
-    
-
+.gameResultt{
+    color: white;
+    visibility: visible;
 }
