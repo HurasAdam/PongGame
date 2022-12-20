@@ -17,6 +17,7 @@ const gameState = {
   ballPositionY: (500 - 10) / 2,
   playerWidth: 20,
   playerHeight: 100,
+
   playerPositionX: 70,
   aiPositionX: 910,
   playerPositionY: 200,
@@ -29,8 +30,6 @@ const gameState = {
 };
 
 function drawTable() {
-
-
   ctx.fillStyle = "#143d";
   ctx.fillRect(0, 0, gameState.cw, gameState.ch);
   for (let linePosition = 20; linePosition < gameState.ch; linePosition += 40) {
@@ -142,16 +141,8 @@ function speedUpBall(value) {
   }
 }
 
-function game(){
-const scoreBoard=document.querySelector('.gameResult')
-
-scoreBoard.classList.add('gameResultt')
-
-
 setInterval(setGame, 1000 / 60);
-}
 
-window.addEventListener('keypress',game);
 canvas.addEventListener("mousemove", function (e) {
   const mousePosition = e.clientY;
 
@@ -217,5 +208,3 @@ function getScore() {
     return 0;
   }
 }
-
-
